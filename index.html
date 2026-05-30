@@ -35,6 +35,22 @@
     <script>
       let interval;
 
+       // Validation setup
+  const inputs = document.querySelectorAll("#numForm input");
+
+  inputs.forEach(input => {
+    input.addEventListener("input", validate);
+  });
+
+  function validate(e) {
+    const max = Number(e.target.max);
+    const value = Number(e.target.value);
+
+    if (value > max) {
+      e.target.value = max;
+    }
+  }
+  
       function numbers(e) {
         
         e.preventDefault();
