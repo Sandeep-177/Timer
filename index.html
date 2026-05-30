@@ -22,8 +22,9 @@
   </head>
   <body>
     <section id="parent">
+      <div id="time">hello</div>
       <div id="formDiv" style="height: 50px; width: 600px">
-        <form id="numForm" onsubmit="numbers()">
+        <form id="numForm" onsubmit="numbers(event)">
           <input id="firstInput" type="number" max="24" />
           <input id="secondInput" type="number" max="60" />
           <input id="thirdInput" type="number" max="60" />
@@ -32,11 +33,42 @@
       </div>
     </section>
     <script>
-      function numbers() {
-        e.preventDeafult();
-        console.log("helo");
+      let interval;
+
+      function numbers(e) {
+        
+        e.preventDefault();
+
+         if (interval) clearInterval(interval);
+
+        let firstNum = Number(document.getElementById("firstInput").value);
+        let secondtNum = Number(document.getElementById("secondInput").value);
+        let thirdNum = Number(document.getElementById("thirdInput").value);
+
+        let totalSecond = firstNum * 3600 + secondtNum * 60 + thirdNum;
+        
+        let elem = document.getElementById("time");
+
+        interval = setInterval(() => {
+          
+
+          const hour = Math.floor(totalSecond / 3600);
+          const minutes = Math.floor((totalSecond % 3600) / 60);
+          const seconds = totalSecond % 60;
+
+          elem.innerText =
+  `${String(hour).padStart(2,"0")}:` +
+  `${String(minutes).padStart(2,"0")}:` +
+  `${String(seconds).padStart(2,"0")}`;
+          
+          totalSecond--;
+
+          if (totalSecond < 0) {
+            clearInterval(interval);
+            elem.innerText = "00:00:00";
+          }
+        }, 1000);
       }
-    
     </script>
   </body>
 </html>
