@@ -35,48 +35,45 @@
     <script>
       let interval;
 
-       // Validation setup
-  const inputs = document.querySelectorAll("#numForm input");
+      // Validation setup
+      const inputs = document.querySelectorAll("#numForm input");
 
-  inputs.forEach(input => {
-    input.addEventListener("input", validate);
-  });
+      inputs.forEach((input) => {
+        input.addEventListener("input", validate);
+      });
 
-  function validate(e) {
-    const max = Number(e.target.max);
-    const value = Number(e.target.value);
+      function validate(e) {
+        const max = Number(e.target.max);
+        const value = Number(e.target.value);
 
-    if (value > max) {
-      e.target.value = max;
-    }
-  }
-  
+        if (value > max) {
+          e.target.value = max;
+        }
+      }
+
       function numbers(e) {
-        
         e.preventDefault();
 
-         if (interval) clearInterval(interval);
+        if (interval) clearInterval(interval);
 
         let firstNum = Number(document.getElementById("firstInput").value);
         let secondtNum = Number(document.getElementById("secondInput").value);
         let thirdNum = Number(document.getElementById("thirdInput").value);
 
         let totalSecond = firstNum * 3600 + secondtNum * 60 + thirdNum;
-        
+
         let elem = document.getElementById("time");
 
         interval = setInterval(() => {
-          
-
           const hour = Math.floor(totalSecond / 3600);
           const minutes = Math.floor((totalSecond % 3600) / 60);
           const seconds = totalSecond % 60;
 
           elem.innerText =
-  `${String(hour).padStart(2,"0")}:` +
-  `${String(minutes).padStart(2,"0")}:` +
-  `${String(seconds).padStart(2,"0")}`;
-          
+            `${String(hour).padStart(2, "0")}:` +
+            `${String(minutes).padStart(2, "0")}:` +
+            `${String(seconds).padStart(2, "0")}`;
+
           totalSecond--;
 
           if (totalSecond < 0) {
